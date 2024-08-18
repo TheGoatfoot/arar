@@ -20,25 +20,21 @@
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
         <a-entity mindar-image-target="targetIndex: 0" highlight>
             <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
-            <a-gltf-model rotation="0 0 0 " position="0 0 0.1" scale="0.005 0.005 0.005" src="#avatarModel"
+            <a-gltf-model id="model" rotation="0 0 0 " position="0 0 0.1" scale="0.005 0.005 0.005" src="#avatarModel"
                 animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate">
         </a-entity>
     </a-scene>
     <script>
         AFRAME.registerComponent('highlight', {
             init: function () {
-                var buttonEls = this.buttonEls = this.el.querySelectorAll('.menu-button');
-                var backgroundEl = document.querySelector('#background');
+                var buttonEls = this.buttonEls = this.el.querySelector('#model');
                 this.onClick = this.onClick.bind(this);
                 this.onMouseEnter = this.onMouseEnter.bind(this);
                 this.onMouseLeave = this.onMouseLeave.bind(this);
                 this.reset = this.reset.bind(this);
-                backgroundEl.addEventListener('click', this.reset);
-                for (var i = 0; i < buttonEls.length; ++i) {
-                    buttonEls[i].addEventListener('mouseenter', this.onMouseEnter);
-                    buttonEls[i].addEventListener('mouseleave', this.onMouseLeave);
-                    buttonEls[i].addEventListener('click', this.onClick);
-                }
+                buttonEls.addEventListener('mouseenter', this.onMouseEnter);
+                buttonEls.addEventListener('mouseleave', this.onMouseLeave);
+                buttonEls.addEventListener('click', this.onClick);
             },
 
             onClick: function (evt) {
